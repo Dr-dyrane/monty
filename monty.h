@@ -53,7 +53,7 @@ typedef struct data_s
 } data_t;
 
 /* Global variable used to store the tokenized opcode lines */
-data_t variable;
+extern data_t variable;
 
 /**
  * do_operation - Executes the operation associated with the opcode

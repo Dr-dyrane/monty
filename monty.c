@@ -1,6 +1,11 @@
 #include "monty.h"
 
 /**
+ * variable - Global variable used to store the tokenized opcode lines
+ */
+data_t variable;
+
+/**
  * run_monty - Read and execute Monty bytecode instructions
  * @stream: Pointer to the file stream
  *
