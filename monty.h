@@ -41,7 +41,7 @@ typedef struct instruction_s
 } instruction_t;
 
 /**
- * struct data - Stores Monty bytecode data
+ * struct data_s - Stores Monty bytecode data
  * @optokens: Array of opcode lines
  *
  * Description: Structure for storing Monty bytecode data, specifically the
