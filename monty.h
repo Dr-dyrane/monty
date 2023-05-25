@@ -47,13 +47,13 @@ typedef struct instruction_s
  * Description: Structure for storing Monty bytecode data, specifically the
  *              lines of opcode, to be used in multiple functions.
  */
-typedef struct data
+typedef struct data_s
 {
 	char **optokens;
-} data;
+} data_t;
 
 /* Global variable used to store the tokenized opcode lines */
-data variable;
+extern data_t variable;
 
 /**
  * do_operation - Executes the operation associated with the opcode
