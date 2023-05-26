@@ -9,7 +9,7 @@ void do_pall(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
 
-	(void) line_number;
+	(void)line_number;
 
 	while (current)
 	{
@@ -29,7 +29,8 @@ void do_pint(stack_t **stack, unsigned int line_number)
 
 	if (!*stack || !stack)
 	{
-		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+		dprintf(2, "L%u: can't pint, stack empty\n", line_number);
+		free_variable();
 		exit(EXIT_FAILURE);
 	}
 
@@ -47,13 +48,15 @@ void do_pchar(stack_t **stack, unsigned int line_number)
 
 	if (!stack || !current)
 	{
-		fprintf(stderr, "L%u: can't pchar, stack empty\n", line_number);
+		dprintf(2, "L%u: can't pchar, stack empty\n", line_number);
+		free_variable();
 		exit(EXIT_FAILURE);
 	}
 
 	if (current->n < 32 || current->n > 126)
 	{
-		fprintf(stderr, "L%u: can't pchar, value out of range\n", line_number);
+		dprintf(2, "L%u: can't pchar, value out of range\n", line_number);
+		free_variable();
 		exit(EXIT_FAILURE);
 	}
 
@@ -69,7 +72,7 @@ void do_pstr(stack_t **stack, unsigned int line_number)
 {
 	stack_t *current = *stack;
 
-	(void) line_number;
+	(void)line_number;
 
 	while (current)
 	{
@@ -90,6 +93,6 @@ void do_pstr(stack_t **stack, unsigned int line_number)
  */
 void do_nop(stack_t **stack, unsigned int line_number)
 {
-	(void) stack;
-	(void) line_number;
+	(void)stack;
+	(void)line_number;
 }

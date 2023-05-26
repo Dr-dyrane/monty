@@ -1,41 +1,42 @@
 #include "monty.h"
 
 /**
- * do_push - adds a value to the top of a stack
- * @stack: Double pointer to the head of the stack
+ * do_push - adds a value to the top of a stack or queue
+ * @stack: Double pointer to the head of the stack or queue
  * @line_number: Current line number being processed
  */
 void do_push(stack_t **stack, unsigned int line_number)
 {
-	stack_t *new;
+	int n, ja;
 
-	if (!variable.optokens[1] || !is_integer(variable.optokens[1]))
+	if (!variable.optokens)
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		dprintf(2, "L%u: ", line_number);
+		dprintf(2, "usage: push integer\n");
+		free_variable();
 		exit(EXIT_FAILURE);
 	}
 
-	new = malloc(sizeof(stack_t));
-	if (!new)
+	ja = 0;
+	while (variable.optokens[ja] != '\0')
 	{
-		fprintf(stderr, "Error: malloc failed\n");
-		exit(EXIT_FAILURE);
+		if (!isdigit(variable.optokens[ja]) && variable.optokens[ja] != '-')
+		{
+			dprintf(2, "L%u: ", line_number);
+			dprintf(2, "usage: push integer\n");
+			free_variable();
+			exit(EXIT_FAILURE);
+		}
+
+		ja++;
 	}
 
-	new->n = atoi(variable.optokens[1]);
-	new->prev = NULL;
+	n = atoi(variable.optokens);
 
-	if (!*stack)
-	{
-		new->next = NULL;
-		*stack = new;
-	}
+	if (variable.is_stack == 1)
+		add_dnodeint(stack, n);
 	else
-	{
-		new->next = *stack;
-		(*stack)->prev = new;
-		*stack = new;
-	}
+		add_dnodeint_end(stack, n);
 }
 
 /**
@@ -49,7 +50,8 @@ void do_pop(stack_t **stack, unsigned int line_number)
 
 	if (!*stack || !stack)
 	{
-		fprintf(stderr, "L%u: can't pop an empty stack\n", line_number);
+		dprintf(2, "L%u: can't pop an empty stack\n", line_number);
+		free_variable();
 		exit(EXIT_FAILURE);
 	}
 
@@ -73,7 +75,8 @@ void do_swap(stack_t **stack, unsigned int line_number)
 
 	if (!*stack || !(*stack)->next)
 	{
-		fprintf(stderr, "L%u: can't swap, stack too short\n", line_number);
+		dprintf(2, "L%u: can't swap, stack too short\n", line_number);
+		free_variable();
 		exit(EXIT_FAILURE);
 	}
 
