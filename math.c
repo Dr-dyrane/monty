@@ -12,21 +12,19 @@ void do_add(stack_t **stack, unsigned int line_number)
 
 	if (!stack || !node_0)
 	{
-		dprintf(2, "L%u: can't add, stack too short\n", line_number);
-		free_variable();
+		fprintf(stderr, "L%u: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	node_1 = node_0->next;
 	if (!node_1)
 	{
-		dprintf(2, "L%u: can't add, stack too short\n", line_number);
-		free_variable();
+		fprintf(stderr, "L%u: can't add, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	node_1->n += node_0->n;
 	*stack = node_1;
 	node_1->prev = NULL;
-	do_pop(stack, line_number);
+	free(node_0);
 }
 
 /**
@@ -40,21 +38,19 @@ void do_sub(stack_t **stack, unsigned int line_number)
 
 	if (!stack || !node_0)
 	{
-		dprintf(2, "L%u: can't sub, stack too short\n", line_number);
-		free_variable();
+		fprintf(stderr, "L%u: can't sub, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	node_1 = node_0->next;
 	if (!node_1)
 	{
-		dprintf(2, "L%u: can't sub, stack too short\n", line_number);
-		free_variable();
+		fprintf(stderr, "L%u: can't sub, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	node_1->n -= node_0->n;
 	*stack = node_1;
 	node_1->prev = NULL;
-	do_pop(stack, line_number);
+	free(node_0);
 }
 
 /**
@@ -68,27 +64,24 @@ void do_div(stack_t **stack, unsigned int line_number)
 
 	if (!stack || !node_0)
 	{
-		dprintf(2, "L%u: can't div, stack too short\n", line_number);
-		free_variable();
+		fprintf(stderr, "L%u: can't div, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	node_1 = node_0->next;
 	if (!node_1)
 	{
-		dprintf(2, "L%u: can't div, stack too short\n", line_number);
-		free_variable();
+		fprintf(stderr, "L%u: can't div, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	if (node_0->n == 0)
 	{
-		dprintf(2, "L%u: division by zero\n", line_number);
-		free_variable();
+		fprintf(stderr, "L%u: division by zero\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	node_1->n /= node_0->n;
 	*stack = node_1;
 	node_1->prev = NULL;
-	do_pop(stack, line_number);
+	free(node_0);
 }
 
 /**
@@ -102,21 +95,19 @@ void do_mul(stack_t **stack, unsigned int line_number)
 
 	if (!stack || !node_0)
 	{
-		dprintf(2, "L%u: can't mul, stack too short\n", line_number);
-		free_variable();
+		fprintf(stderr, "L%u: can't mul, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	node_1 = node_0->next;
 	if (!node_1)
 	{
-		dprintf(2, "L%u: can't mul, stack too short\n", line_number);
-		free_variable();
+		fprintf(stderr, "L%u: can't mul, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	node_1->n *= node_0->n;
 	*stack = node_1;
 	node_1->prev = NULL;
-	do_pop(stack, line_number);
+	free(node_0);
 }
 
 /**
@@ -131,25 +122,22 @@ void do_mod(stack_t **stack, unsigned int line_number)
 
 	if (!stack || !node_0)
 	{
-		dprintf(2, "L%u: can't mod, stack too short\n", line_number);
-		free_variable();
+		fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	node_1 = node_0->next;
 	if (!node_1)
 	{
-		dprintf(2, "L%u: can't mod, stack too short\n", line_number);
-		free_variable();
+		fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	if (node_0->n == 0)
 	{
-		dprintf(2, "L%u: division by zero\n", line_number);
-		free_variable();
+		fprintf(stderr, "L%u: division by zero\n", line_number);
 		exit(EXIT_FAILURE);
 	}
 	node_1->n %= node_0->n;
 	*stack = node_1;
 	node_1->prev = NULL;
-	do_pop(stack, line_number);
+	free(node_0);
 }

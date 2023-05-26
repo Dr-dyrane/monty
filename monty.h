@@ -41,39 +41,26 @@ typedef struct instruction_s
 } instruction_t;
 
 /**
- * struct data_s - Global structure to use for the Monty interpreter
- * @is_stack: Indicates if the interpreter operates as a stack (1) or queue (0)
- * @line_number: Current line number being processed
+ * struct data_s - Stores Monty bytecode data
  * @optokens: Array of opcode lines
- * @stack: Doubly linked list representation of a stack (or queue)
- * @stream: Pointer to the file stream
- * @buffer: Buffer for storing the current line of bytecode being processed
  *
  * Description: Structure for storing Monty bytecode data, specifically the
  *              lines of opcode, to be used in multiple functions.
  */
 typedef struct data_s
 {
-	int is_stack;
-	unsigned int line_number;
-	char *optokens;
-	stack_t *stack;
-	FILE *stream;
-	char *buffer;
+	char **optokens;
 } data_t;
 
-/* External declaration of the global structure; variable  */
-extern data_t variable;
+/* Global variable used to store the tokenized opcode lines */
+data_t variable;
 
 /**
  * do_operation - Executes the operation associated with the opcode
- * @op_code: opcode passed in file stream
  * @stack: Double pointer to the head of the stack
  * @line_number: Current line number being processed
  */
-void (*do_operation(char *op_code))(stack_t **stack, unsigned int line_number);
-void do_stack(stack_t **stack, unsigned int line_number);
-void do_queue(stack_t **stack, unsigned int line_number);
+void do_operation(stack_t **stack, unsigned int line_number);
 
 /* Stack manipulation */
 void do_push(stack_t **stack, unsigned int line_number);
@@ -97,22 +84,10 @@ void do_mul(stack_t **stack, unsigned int line_number);
 void do_mod(stack_t **stack, unsigned int line_number);
 
 /* String functions */
-char *split_string(char *line, char *delim);
-int my_strchr(char *str, char c);
-int my_strcmp(char *s1, char *s2);
-
-/* doubly linked list functions */
-stack_t *add_dnodeint_end(stack_t **stack, const int n);
-stack_t *add_dnodeint(stack_t **stack, const int n);
-void free_dlistint(stack_t *stack);
-
-/* Memory manipulation */
-void *my_realloc(void *pointer, unsigned int old_size, unsigned int new_size);
-void *my_calloc(unsigned int elements, unsigned int size);
+int is_integer(char *s);
+char **split_string(char *line, char *delim);
 
 /* Monty interpreter */
 void run_monty(FILE *stream);
-void free_variable(void);
-void initialize_variable(FILE *stream);
 
 #endif /* MONTY_H */
