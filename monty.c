@@ -9,7 +9,7 @@
 void run_monty(FILE *stream)
 {
 	unsigned int line_number = 0;
-	char *buffer = NULL, *delim = " \n";
+	char *buffer = NULL, *delim = " \n\t";
 	size_t buffer_size;
 	stack_t *stack = NULL, *temp;
 
